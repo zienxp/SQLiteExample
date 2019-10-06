@@ -17,7 +17,7 @@ import android.widget.Button;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment implements View.OnClickListener {
-    Button buttonAddContact, buttonViewContact, buttonUpdatecontact;
+    private Button buttonAddContact, buttonViewContact, buttonUpdatecontact;
     OnDbOpListener dbOpListener;
 
     public HomeFragment() {
@@ -31,6 +31,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         buttonAddContact = view.findViewById(R.id.button_add_contact);
         buttonAddContact.setOnClickListener(this);
+        buttonViewContact = view.findViewById(R.id.button_view_contact);
+        buttonViewContact.setOnClickListener(this);
 
         return view;
     }
@@ -40,6 +42,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.button_add_contact:
                 dbOpListener.dbOpPerformed(0);
+                break;
+
+            case R.id.button_view_contact:
+                dbOpListener.dbOpPerformed(1);
                 break;
         }
 
@@ -58,6 +64,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     public interface OnDbOpListener {
-        public void dbOpPerformed(int method);
+        void dbOpPerformed(int method);
     }
 }
