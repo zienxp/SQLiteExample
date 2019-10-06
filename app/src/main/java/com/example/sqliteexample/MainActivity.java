@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements HomeFragment.OnDbOpListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,5 +21,16 @@ public class MainActivity extends AppCompatActivity {
 
             getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, homeFragment, null).commit();
         }
+    }
+
+    @Override
+    public void dbOpPerformed(int method) {
+
+        switch (method) {
+            case 0:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AddContactFragment()).addToBackStack(null).commit();
+                break;
+        }
+
     }
 }

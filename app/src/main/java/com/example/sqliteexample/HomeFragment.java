@@ -1,6 +1,8 @@
 package com.example.sqliteexample;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,13 +16,13 @@ import android.widget.Button;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment {
-    Button buttonAddContact;
+public class HomeFragment extends Fragment implements View.OnClickListener {
+    Button buttonAddContact, buttonViewContact, buttonUpdatecontact;
+    OnDbOpListener dbOpListener;
 
     public HomeFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -28,14 +30,34 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         buttonAddContact = view.findViewById(R.id.button_add_contact);
-        buttonAddContact.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+        buttonAddContact.setOnClickListener(this);
 
         return view;
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button_add_contact:
+                dbOpListener.dbOpPerformed(0);
+                break;
+        }
+
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Activity activity = (Activity) context;
+        try {
+            dbOpListener = (OnDbOpListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + "must implement the interface method ..");
+        }
+
+    }
+
+    public interface OnDbOpListener {
+        public void dbOpPerformed(int method);
+    }
 }
