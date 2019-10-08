@@ -3,15 +3,14 @@ package com.example.sqliteexample;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 
 /**
@@ -36,24 +35,26 @@ public class UpdateFragment extends Fragment {
         update_id = view.findViewById(R.id.text_update_id);
         update_name = view.findViewById(R.id.text_update_name);
         update_email = view.findViewById(R.id.text_update_email);
-        update_button = view.findViewById(R.id.button_save);
+        update_button = view.findViewById(R.id.button_update_save);
         update_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updatContact();
+                updateContact();
+
             }
         });
 
         return view;
     }
 
-    private void updatContact() {
-        int id = Integer.parseInt(update_id.getText().toString());
-        String name = update_name.getText().toString();
-        String email = update_email.getText().toString();
+    private void updateContact() {
+
 
         ContactDbHelper contactDbHelper = new ContactDbHelper(getActivity());
         SQLiteDatabase database = contactDbHelper.getWritableDatabase();
+        int id = Integer.parseInt(update_id.getText().toString());
+        String name = update_name.getText().toString();
+        String email = update_email.getText().toString();
 
         contactDbHelper.updateContact(id, name, email, database);
         contactDbHelper.close();

@@ -13,9 +13,10 @@ public class ContactDbHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "contact_db";
     private static final int DATABASE_VERSION = 1;
-    private static final String CREATE_TABLE = "create table " + ContactContract.ContactEntry.TABLE_Name +
-            "(" + ContactContract.ContactEntry.CONTACT_ID + "number," + ContactContract.ContactEntry.TABLE_Name + "text,"
-            + ContactContract.ContactEntry.EMAIL + "text);";
+    //    private static final String CREATE_TABLE = "CREATE TABLE " + ContactContract.ContactEntry.TABLE_Name + "("
+//            + ContactContract.ContactEntry.CONTACT_ID + "INTEGER,"
+//            + ContactContract.ContactEntry.TABLE_Name + "TEXT,"
+//            + ContactContract.ContactEntry.EMAIL + "TEXT);";
     private static final String Drop_Table = "drop table if Exists " + ContactContract.ContactEntry.TABLE_Name;
 
     ContactDbHelper(Context context) {
@@ -25,6 +26,12 @@ public class ContactDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+// Create a String that contains the SQL statement to create the pets table
+        String CREATE_TABLE = "CREATE TABLE " + ContactContract.ContactEntry.TABLE_Name + "("
+                + ContactContract.ContactEntry.CONTACT_ID + " INTEGER,"
+                + ContactContract.ContactEntry.NAME + " TEXT,"
+                + ContactContract.ContactEntry.EMAIL + " TEXT);";
+
         db.execSQL(CREATE_TABLE);
         Log.d("Database Operation", "Table Created ... ");
 
@@ -60,5 +67,11 @@ public class ContactDbHelper extends SQLiteOpenHelper {
 
         String selection = ContactContract.ContactEntry.CONTACT_ID + "=" + id;
         database.update(ContactContract.ContactEntry.TABLE_Name, contentValues, selection, null);
+    }
+
+    public void deleteContact(int id, SQLiteDatabase database) {
+        String selection = ContactContract.ContactEntry.CONTACT_ID + "=" + id;
+        database.delete(ContactContract.ContactEntry.TABLE_Name, selection, null);
+
     }
 }
