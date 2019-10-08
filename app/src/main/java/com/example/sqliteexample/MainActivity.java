@@ -33,6 +33,9 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnDb
             case 1:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ReadContactFragment()).addToBackStack(null).commit();
                 break;
+            case 2:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new UpdateFragment()).addToBackStack(null).commit();
+                break;
         }
 
     }

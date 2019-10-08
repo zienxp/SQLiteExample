@@ -45,7 +45,7 @@ public class ReadContactFragment extends Fragment {
             String Id = Integer.toString(cursor.getInt(cursor.getColumnIndex(ContactContract.ContactEntry.CONTACT_ID)));
             String name = cursor.getString(cursor.getColumnIndex(ContactContract.ContactEntry.NAME));
             String email = cursor.getString(cursor.getColumnIndex(ContactContract.ContactEntry.EMAIL));
-            info = info + "\n\n " + "ID : " + Id + "\n Name : " + name + "\n E-mail : " + email;
+            info = info + "\n\n" + "ID : " + Id + "\nName : " + name + "\nE-mail : " + email;
         }
 
         textDisplay.setText(info);

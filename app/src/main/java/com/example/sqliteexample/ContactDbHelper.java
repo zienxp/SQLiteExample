@@ -20,7 +20,7 @@ public class ContactDbHelper extends SQLiteOpenHelper {
 
     ContactDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        Log.d("Database Operation", "Database... ");
+        Log.d("Database Operation", "Database created... ");
     }
 
     @Override
@@ -50,7 +50,15 @@ public class ContactDbHelper extends SQLiteOpenHelper {
 
     public Cursor readContacts(SQLiteDatabase database) {
         String[] projection = {ContactContract.ContactEntry.CONTACT_ID, ContactContract.ContactEntry.NAME, ContactContract.ContactEntry.EMAIL};
-        Cursor cursor = database.query(ContactContract.ContactEntry.TABLE_Name, projection, null, null, null, null, null);
-        return cursor;
+        return database.query(ContactContract.ContactEntry.TABLE_Name, projection, null, null, null, null, null);
+    }
+
+    public void updateContact(int id, String name, String email, SQLiteDatabase database) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ContactContract.ContactEntry.NAME, name);
+        contentValues.put(ContactContract.ContactEntry.EMAIL, email);
+
+        String selection = ContactContract.ContactEntry.CONTACT_ID + "=" + id;
+        database.update(ContactContract.ContactEntry.TABLE_Name, contentValues, selection, null);
     }
 }
